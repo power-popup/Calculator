@@ -1,4 +1,5 @@
 const Calculator = require('./calculator.js');
+const {operatorsMap} = require('./operations.js');
 
 const express = require('express');
 const app = express();
@@ -11,32 +12,18 @@ app.get('/', (req, res) => {
 })
 
 app.post('/calculate', (req,res) => {
-    let firstNum = parseFloat(req.body.firstNum);
-    let secondNum = parseFloat(req.body.secondNum);
-    let operator = req.body.operator;
-    const calculator = new Calculator(firstNum, secondNum, map[operator])
-    let result = calculator.calculate();
+    const {firstNum, secondNum, operator} = getParameters(req);
+    const calculator = new Calculator()
+    const mathAction = operatorsMap[operator]
+    let result = calculator.calculate(mathAction, firstNum, secondNum)
     res.send({result})
 })
 
-const map = {
-    '+': add,
-    '-': sub,
-    '*': mult,
-    '/': div
+const getParameters = (req) => {
+    let firstNum = parseFloat(req.body.firstNum);
+    let secondNum = parseFloat(req.body.secondNum);
+    let operator = req.body.operator;
+    return {firstNum, secondNum, operator}
 }
 
-function add(firstNum, secondNum) {
-    return firstNum + secondNum
-}
-function sub(firstNum, secondNum) {
-    return firstNum - secondNum
-}
-function mult(firstNum, secondNum) {
-    return firstNum * secondNum
-}
-function div(firstNum, secondNum) {
-    return firstNum / secondNum
-}
-
-app.listen(3000)
+app.listen(3001)
