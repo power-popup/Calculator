@@ -1,4 +1,3 @@
-const Calculator = require('./calculator.js');
 const {operatorsMap} = require('./operations.js');
 
 const express = require('express');
@@ -13,9 +12,8 @@ app.get('/', (req, res) => {
 
 app.post('/calculate', (req,res) => {
     const {firstNum, secondNum, operator} = getParameters(req);
-    const calculator = new Calculator()
     const mathAction = operatorsMap[operator]
-    let result = calculator.calculate(mathAction, firstNum, secondNum)
+    let result = mathAction.calculate(firstNum, secondNum)
     res.send({result})
 })
 
