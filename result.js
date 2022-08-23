@@ -1,23 +1,18 @@
 class Result {
-    #number = undefined
-    #color = undefined
+    number = null
+    color = null
 
-    setNumber(number) {
-        this.#number = number;
+    constructor(number, color) {
+        this.number = number
+        this.color = color
     }
 
-    setColor(color) {
-        this.#color = color;
+    getParameters() {
+        return {
+            number: this.number,
+            color: this.color
+        }
     }
-
-    getNumber() {
-        return this.#number;
-    }
-
-    getColor() {
-        return this.#color;
-    }
-
 }
 
 module.exports = Result
