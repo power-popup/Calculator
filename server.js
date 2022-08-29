@@ -16,6 +16,7 @@ app.post('/calculate', (req, res) => {
     const { firstNum, secondNum, operator } = getParameters(req);
     const mathAction = operatorsMap[operator];
     let calculateResult = mathAction.calculate(firstNum, secondNum)
+    //Who should be responsible to deal with response creation details ?
     let result = new Result(
         calculateResult,
         colorsMap[(getReminder(calculateResult))]
